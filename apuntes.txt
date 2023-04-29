@@ -1,0 +1,99 @@
+<?php 
+    // session_start();
+    // //esto no deja que si hay una sesion activa regrese al menu de registro
+    // if(isset($_SESSION['alumno'])){
+    //    header("location: ./VentanaAlumno.php");
+    // }
+?>  
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Limpiar cache -->
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="../estilos/boostrap.css" rel="stylesheet">
+    <link href="../estilos/estilosGenerales.css" rel="stylesheet">
+    <script type="text/javascript" src="../funciones/alertas.js"></script>
+    <script type="text/javascript" src="../funciones/funciones.js"></script>
+
+    <title>Citas Psicologicas</title>
+</head>
+<body>
+    <img class="fondoItesi" src="../img/ITESI.jpg">
+
+    <div class="container">
+        <input id="signup_toggle" type="checkbox">
+        <form class="form">
+        <div class="form_front">
+            <div class="form_details">Login</div>
+            <input type="text" class="input" placeholder="Username">
+            <input type="text" class="input" placeholder="Password">
+            <button class="btn">Login</button>
+            <span class="switch">Don't have an account?<label for="signup_toggle" class="signup_tog">Sign Up</label></span>
+        </div>
+        <div class="form_back">
+            <div class="form_details">SignUp</div>
+            <input type="text" class="input" placeholder="Firstname">
+            <input type="text" class="input" placeholder="Username">
+            <input type="text" class="input" placeholder="Password">
+            <input type="text" class="input" placeholder="Confirm Password">
+            <button class="btn">Signup</button>
+            <span class="switch">Already have an account?<label for="signup_toggle" class="signup_tog">Sign In</label></span>
+        </div>
+    </form>
+        <h1>INSTITUTO TECNOLOGICO SUPERIOR DE IRAPUATO</h1>
+        <label>Departamento de Tutorías</label>
+        <form id="form">
+            <label>INICIAR SESIÓN</label>
+            <div class="row">
+                <div class="col">
+                    <label>Numero de Control</label>    
+                </div>
+                <div class="col">
+                    <input id="inpNumControl" placeholder="IS18110312" type="text">  
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label>Contraseña</label>   
+                </div>
+                <div class="col">
+                    <input id="inpContraseña" placeholder="Password" type="password">
+                </div>
+            </div>
+            <a id="btnIniciarSesion">INICIAR SESIÓN</a>
+        </form>
+        <form id="frmRegistro">
+            <label>REGISTRARSE</label>
+            <label>Nombre Completo</label>
+            <input id="inpNombeReg" placeholder="Apellido(P) Apellido(M) Nombre(s)" type="text">
+            <label>Numero de Control</label>
+            <input id="inpNumControlReg" placeholder="IS18110312" type="text">
+            <label>Correo Institucional</label>
+            <input id="inpCorreoInstReg" placeholder="LIS18110312@irapuato.tecn.mx" type="email">
+            <label>Correo Personal</label>
+            <input id="inpCorreoPersReg" placeholder="josue01_Ej@hotmail.com" type="email">
+            <label>Contraseña</label>
+            <input id="inpContraseñaReg" placeholder="Password" type="password">
+            <label>Telefono Celular</label>
+            <input id="inpTelefonoReg" placeholder="462 123 45 67" type="tel">
+            <label>Edad</label>
+            <input id="inpEdadReg" placeholder="23" type="number">
+            <label>Carrera</label>
+            <input id="inpCarreraReg" placeholder="Informatica" type="text">
+            <a id="btnRegistrarse" class="btn btn-outline-info" onClick="validaRegistro()">REGISTRARSE</a>
+        </form>
+        <a href="./Psycho.php" class="btn btn-outline-info">Psicologos</a>
+        <a href="./index.php" class="btn btn-outline-info">Alumnos</a>
+    </div>
+
+</body>
+
