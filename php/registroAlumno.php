@@ -4,6 +4,9 @@
 // if(isset($_SESSION['alumno'])){
 //    header("location: ./VentanaAlumno.php");
 // }
+
+    include '../conexion/conexionBD.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -44,7 +47,7 @@
                         <p class="heading">REGISTRARSE</p>
                         <div class="row">
                             <div class="f-control">
-                                <input id="nombreRegistroAlm" title="ej. JOSUE SANCHEZ VENEGAS" type="text" required="" style="text-transform:uppercase;" onkeypress="return soloLetras(event)">
+                                <input id="nombreRegistroAlm" title="ej. JOSUE SANCHEZ VENEGAS" type="text" required="" style="text-transform:uppercase;" maxlength="60" onkeypress="return soloLetras(event)">
                                 <label>
                                     <span style="transition-delay:0ms">N</span>
                                     <span style="transition-delay:30ms">o</span>
@@ -64,7 +67,7 @@
                                 </label>
                             </div>
                             <div class="f-control">
-                                <input id="edadRegistroAlm" title="ej.23" maxlength="2" type="number" required="" onkeypress="return soloNumeros(event)">
+                                <input id="edadRegistroAlm" title="ej.23" type="text" required="" maxlength="2" onkeypress="return soloNumeros(event)">
                                 <label>
                                     <span style="transition-delay:0ms">E</span>
                                     <span style="transition-delay:30ms">d</span>
@@ -73,12 +76,19 @@
                                 </label>
                             </div>
                             <div class="f-control">
-                                <!-- <input id="carreraRegistroAlm" type="text" required=""> -->
                                 <select id="carreraRegistroAlm" required="" title="Selecciona tu carrera">
-                                    <option disable> </option>
-                                    <option>Informática</option>
-                                    <option>Sistemas Computacionales</option>
-                                    <option>Mecatrónica</option>
+                                    <option> </option>
+                                    <?php
+                                        $queryCarreras ="SELECT * from carreras where statuscarrera=1";
+                                        $conexionCarreras = pg_query($conexion, $queryCarreras);
+                                        $noRowsCarreras = pg_num_rows($conexionCarreras);
+
+                                        while ($resultadosCarreras = pg_fetch_row($conexionCarreras)){
+                                            $idCarrera = $resultadosCarreras[0];
+                                            $nombreCarrera = $resultadosCarreras[1];
+                                            print_r("<option value=\"$idCarrera\">$nombreCarrera</option>");
+                                        }
+                                    ?>
                                 </select>
                                 <label>
                                     <span style="transition-delay:0ms">C</span>
@@ -121,7 +131,7 @@
                                 </label>
                             </div>
                             <div class="f-control">
-                                <input id="correoPersRegistroAlm" type="text" required="" title="ej. ejemplo@hotmail.com">
+                                <input id="correoPersRegistroAlm" type="text" required="" title="ej. ejemplo@hotmail.com" maxlength="50">
                                 <label>
                                     <span style="transition-delay:0ms">C</span>
                                     <span style="transition-delay:30ms">o</span>
@@ -141,7 +151,7 @@
                                 </label>
                             </div>
                             <div class="f-control">
-                                <input id="correoInstRegistroAlm" type="text" required="" style="text-transform:uppercase;" title="ej. LIS18110312@IRAPUATO.TECNM.MX">
+                                <input id="correoInstRegistroAlm" type="text" required="" style="text-transform:uppercase;" title="ej. LIS18110312@IRAPUATO.TECNM.MX" maxlength="50">
                                 <label>
                                     <span style="transition-delay:0ms">C</span>
                                     <span style="transition-delay:30ms">o</span>
@@ -181,7 +191,7 @@
                                 </label>
                             </div>
                             <div class="f-control">
-                                <input id="numeroRegistroAlm" type="number" required="" title="ej. 4629876543" onkeypress="return soloNumeros(event)" maxlength="10">
+                                <input id="numeroRegistroAlm" type="text" required="" title="ej. 4629876543" onkeypress="return soloNumeros(event)" maxlength="10">
                                 <label>
                                     <span style="transition-delay:0ms">N</span>
                                     <span style="transition-delay:30ms">ú</span>
