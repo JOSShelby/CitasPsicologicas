@@ -354,3 +354,17 @@ button{
   #file {
     display: none;
   }
+  /* boton cerrar sesion */
+  .cerrarSesion{
+    margin-block: 20px;
+    outline: none;
+    padding: 1px;
+    color: #ffffff;
+    padding-left: .5em;
+    padding-right: .5em;
+    border: 2px dashed #ffffff;
+    border-radius: 15px;
+    background-color: #5860ac;
+    box-shadow: 0 0 0 4px #37409f, 2px 2px 4px 2px rgba(0, 0, 0, 0.5);
+    transition: .1s ease-in-out, .4s color;
+  }

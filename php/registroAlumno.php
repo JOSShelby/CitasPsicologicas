@@ -211,7 +211,7 @@
                             </div>
                         </div>
                         <a style="color:#ffffff" onclick="validaRegistroAlumno()">Registrarse</a>
-                        <label class="mensaje-registro">¿Ya tienes cuenta? <label class="label-registrar" onclick="location.href='/citasPsicologicas/php/index.php'"> Iniciar Sesión</label></label>
+                        <label class="mensaje-registro">¿Ya tienes cuenta? <label class="label-registrar" onclick="location.href='/citasPsicologicas/php/'"> Iniciar Sesión</label></label>
                     </form>
                 </div>
             </div>

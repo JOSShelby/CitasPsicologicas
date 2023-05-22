@@ -35,11 +35,24 @@ function validaLoginAlumno(){
     if(numControlLogin.toUpperCase()=="" || contraseñaLogin==""){
         swal("¡ERROR!", "LLENE LOS DATOS MÍNIMOS PARA INICIAR SESIÓN", "error");
     }else{
-        if(numControlLogin.toUpperCase()=='IS18110312' && contraseñaLogin=='123456'){
-            location.href ="/citasPsicologicas/php/pantallaPrincipalAlumno.php";
-        }else{
-            swal("¡ERROR!", "EL NÚMERO DE CONTROL O CONTRASEÑA SON INCORRECTOS", "error");
-        }
+        const options = {
+            method: "GET",
+        }; 
+        fetch("/citasPsicologicas/php/AJAX/loginAlumnoAJAX.php?numeroControl="+numControlLogin.toUpperCase()+"&contraseña="+contraseñaLogin, options)
+            .then(response => response.json())
+            .then(data => {
+                // console.log(data)
+                if(data["bandera"] == 0){
+                    swal("¡ERROR!", "OCURRIO UN ERROR INESPERADO, INTENTALO MÁS TARDE", "error");
+                }
+                if(data["bandera"] == 1){
+                    // swal("ÉXITO!", "REGISTRO EXITOSO", "success");
+                    location.href="/citasPsicologicas/php/pantallaPrincipalAlumno.php";
+                }
+                if(data["bandera"] == 2){
+                    swal("¡ERROR!", "NÚMERO DE CONTROL O CONTRASEÑA INCORRECTA", "error");
+                }
+            });
     }
 }
 // valida el registro del alumno
@@ -133,10 +146,21 @@ function verImagen() {
 function validaSubirHorarioAlm(){
     var formulario = document.getElementById("frmSubirHorarioAlm");
     var horario = formulario.file.value;
+
     if(horario==""){
         swal("¡ERROR!", "NO HAS SELECCIONADO TU HORARIO", "error");
     }else{
-        swal("ÉXITO!", "SE GUARDO TU HORARIO CORRECTAMENTE", "success");
+        const data = new FormData(document.getElementById('frmSubirHorarioAlm'));
+        const options = {
+            method: "POST",
+            body: data
+        }; 
+        fetch("/citasPsicologicas/php/AJAX/subirHorarioAJAX.php?horario="+horario, options)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+
+        });
     }
 }
 // regresa a la pagina principal
@@ -159,4 +183,26 @@ function validFichaCanalizacionAlm(){
         document.getElementById("contenido1").setAttribute("hidden","true");
         document.getElementById("contenido2").removeAttribute("hidden");
     }
+}
+function cerrarSesion(){
+    location.href="/citasPsicologicas/php/cerrarSesion.php";
+}
+function mensajeBienvenida(){
+    var numCtrlHid = document.getElementById("numControlHid").value;
+
+    const options = {
+    method: "GET",
+    }; 
+    fetch("/citasPsicologicas/php/mensajeBienvenida.php?numCtrlHid="+numCtrlHid, options)
+    .then(response => response.json())
+    .then(data => {
+        // console.log(data)
+        if(data["bandera"] == 0){
+            swal("¡ERROR!", "OCURRIO UN ERROR INESPERADO", "error");
+        }
+        var alumno = data["alumno"];
+        if(data["bandera"] == 1){
+            swal("BIENVENIDO "+alumno+"",);
+        }
+    });
 }

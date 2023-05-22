@@ -1,11 +1,7 @@
 <?php
-// session_start();
-// //esto no deja que si hay una sesion activa regrese al menu de registro
-// if(isset($_SESSION['alumno'])){
-//    header("location: ./VentanaAlumno.php");
-// }
+session_start();
+if(isset($_SESSION['alumno'])){
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -41,7 +37,7 @@
             <div class="row">
                 <div class="col">
                 <button style="color:#ffffff" title="Volver al inicio" onclick="volverInicio()"><img src="/citasPsicologicas/img/home.png" width="20px" height="20px"></button>
-                    <form class="form" id="frmSubirHorarioAlm">
+                    <form class="form" id="frmSubirHorarioAlm" enctype="multipart/form-data" method="POST">
                         <div class="row">
                             <div class="container">
                                 <label style="color:#ffffff">SUBE TU HORARIO DE CLASES EN ESTE APARTADO (.jpg)</label>
@@ -56,7 +52,7 @@
                                     </svg>
                                     <p>Seleccionar ...</p>
                                 </label>
-                                <input onclick="verImagen()" id="file" type="file" accept="image/jpeg">
+                                <input onclick="verImagen()" id="file" name="file" type="file" accept="image/jpeg">
                                 <div id="mostrarImagen" class="header" stye="display:flex;">
                                 </div>
                                 <a style="color:#ffffff" onclick="validaSubirHorarioAlm()" title="Click para subir horario de clases">Guardar</a>
@@ -68,3 +64,8 @@
         </div>
     </div>
 </body>
+<?php
+}else{
+    header("location: ./");
+}
+?>

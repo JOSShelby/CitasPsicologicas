@@ -1,11 +1,7 @@
 <?php
-// session_start();
-// //esto no deja que si hay una sesion activa regrese al menu de registro
-// if(isset($_SESSION['alumno'])){
-//    header("location: ./VentanaAlumno.php");
-// }
+session_start();
+if(isset($_SESSION['alumno'])){
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -28,7 +24,7 @@
     <title>Citas Psicologicas</title>
 </head>
 
-<body><img class="fondoItesi" src="/citasPsicologicas/img/ITESI.jpg">
+<body onload="mensajeBienvenida()"><img class="fondoItesi" src="/citasPsicologicas/img/ITESI.jpg">
     <div class="container">
         <div class="container text-center">
             <div class="row">
@@ -40,13 +36,20 @@
             </div>
             <div class="row">
                 <div class="col">
+                <input id="numControlHid" style="display:none" value=<?php echo $_SESSION['alumno'];?>>
                     <form class="form" id="frmLogin">
                         <p class="heading">MENÚ</p>
                         <a style="color:#ffffff" href="/citasPsicologicas/php/subirHorarioAlumno.php" title="Click para subir horario de clases">Subir horario</a>
                         <a style="color:#ffffff" href="/citasPsicologicas/php/agendarCitaAlumno.php" title="Click para agendar cita">Agendar cita</a>
                     </form>
+                    <a class="cerrarSesion" style="color:#ffffff" onclick="cerrarSesion()" title="Click para cerrar sesión">Cerrar sesión</a>
                 </div>
             </div>
         </div>
     </div>
 </body>
+<?php
+}else{
+    header("location: ./");
+}
+?>

@@ -1,10 +1,3 @@
-<?php
-// session_start();
-// //esto no deja que si hay una sesion activa regrese al menu de registro
-// if(isset($_SESSION['alumno'])){
-//    header("location: ./VentanaAlumno.php");
-// }
-?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -97,7 +90,7 @@
                     <span class="radio-label">Psicologo</span>
                 </span>
             </label>
-            <label onclick="location.href='/citasPsicologicas/php/index.php'" title="Login del alumno">
+            <label onclick="location.href='/citasPsicologicas/php/'" title="Login del alumno">
                 <input checked="" class="radio-input" type="radio" name="engine">
                 <span class="radio-tile">
                     <span class="radio-icon">

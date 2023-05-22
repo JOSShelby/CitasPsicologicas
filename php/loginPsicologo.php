@@ -95,7 +95,7 @@
                     <span class="radio-label">Psicologo</span>
                 </span>
             </label>
-            <label onclick="location.href='/citasPsicologicas/php/index.php'">
+            <label onclick="location.href='/citasPsicologicas/php/'">
                 <input class="radio-input" type="radio" name="engine">
                 <span class="radio-tile">
                     <span class="radio-icon">
