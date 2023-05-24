@@ -59,7 +59,7 @@
                                 </label>
                             </div>
                             <div class="f-control">
-                                <input id="contraseñaLogin" maxlength="25" title="Ingresa contraseña" type="password" required="">
+                                <input id="contraseñaLogin" maxlength="25" title="Ingresa contraseña" type="password" required="" maxlength="25">
                                 <label>
                                     <span style="transition-delay:0ms">C</span>
                                     <span style="transition-delay:30ms">o</span>

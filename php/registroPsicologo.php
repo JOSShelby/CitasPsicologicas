@@ -1,14 +1,5 @@
-<?php
-// session_start();
-// //esto no deja que si hay una sesion activa regrese al menu de registro
-// if(isset($_SESSION['alumno'])){
-//    header("location: ./VentanaAlumno.php");
-// }
-?>
-
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <!-- Limpiar cache -->
     <meta http-equiv="Expires" content="0">
@@ -40,11 +31,11 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <form class="form" id="frmRegistroAlm" autocomplete="off">
+                    <form class="form" id="frmRegistroPsi" autocomplete="off">
                         <p class="heading">REGISTRARSE</p>
                         <div class="row">
                             <div class="f-control">
-                                <input id="nombreRegistroPsi" title="ej. JOSUE SANCHEZ VENEGAS" type="text" required="" style="text-transform:uppercase;" onkeypress="return soloLetras(event)">
+                                <input id="nombreRegistroPsi" title="ej. JOSUE SANCHEZ VENEGAS" type="text" required="" maxlength="70" style="text-transform:uppercase;" onkeypress="return soloLetras(event)">
                                 <label>
                                     <span style="transition-delay:0ms">N</span>
                                     <span style="transition-delay:30ms">o</span>
@@ -64,7 +55,7 @@
                                 </label>
                             </div>
                             <div class="f-control">
-                                <input id="edadRegistroPsi" title="ej.23" maxlength="2" type="number" required="" onkeypress="return soloNumeros(event)">
+                                <input id="edadRegistroPsi" title="ej.23" maxlength="2" type="text" required="" onkeypress="return soloNumeros(event)">
                                 <label>
                                     <span style="transition-delay:0ms">E</span>
                                     <span style="transition-delay:30ms">d</span>
@@ -74,7 +65,7 @@
                             </div>
                             <div class="f-control">
                                 <!-- <input id="carreraRegistroAlm" type="text" required=""> -->
-                                <input id="escuelaRegistroPsi" title="ej. UNIVERSIDAD INSTITUTO IRAPUATO" style="text-transform:uppercase;" type="text" required="" onkeypress="return soloLetras(event)">
+                                <input id="escuelaRegistroPsi" title="ej. UNIVERSIDAD INSTITUTO IRAPUATO" style="text-transform:uppercase;" maxlength="70" type="text" required="" onkeypress="return soloLetras(event)">
                                 <label>
                                     <span style="transition-delay:0ms">E</span>
                                     <span style="transition-delay:30ms">s</span>
@@ -101,7 +92,7 @@
                                 </label>
                             </div>
                             <div class="f-control">
-                                <input id="correoPersRegistroPsi" type="text" required="" title="ej. ejemplo@hotmail.com">
+                                <input id="correoPersRegistroPsi" type="text" required="" title="ej. ejemplo@hotmail.com" maxlength="50">
                                 <label>
                                     <span style="transition-delay:0ms">C</span>
                                     <span style="transition-delay:30ms">o</span>
@@ -136,7 +127,7 @@
                                 </label>
                             </div>
                             <div class="f-control">
-                                <input id="numeroRegistroPsi" type="number" required="" title="ej. 4629876543" onkeypress="return soloNumeros(event)" maxlength="10">
+                                <input id="numeroRegistroPsi" type="text" required="" title="ej. 4629876543" onkeypress="return soloNumeros(event)" maxlength="10">
                                 <label>
                                     <span style="transition-delay:0ms">N</span>
                                     <span style="transition-delay:30ms">ú</span>

@@ -82,6 +82,7 @@ function validaRegistroAlumno(){
                 }
                 if(data["bandera"] == 1){
                     swal("ÉXITO!", "REGISTRO EXITOSO", "success");
+                    document.getElementById("frmRegistroAlm").reset();
                 }
                 if(data["bandera"] == 2){
                     swal("¡ERROR!", "YA EXISTE EL REGISTRO", "error");
@@ -92,23 +93,34 @@ function validaRegistroAlumno(){
 // valida login de psicologo
 function validaLoginPsicologo(){
     var formulario = document.getElementById("frmLoginPsi");
-    var correoInstLogin = formulario.correoInstLogin.value.trim();
+    var correoPersonalLogin = formulario.correoPersonalLogin.value.trim();
     var contraseñaLogin = formulario.contraseñaLogin.value.trim();
 
-    if(correoInstLogin.toUpperCase()=="" || contraseñaLogin==""){
+    if(correoPersonalLogin=="" || contraseñaLogin==""){
         swal("¡ERROR!", "LLENE LOS DATOS MÍNIMOS PARA INICIAR SESIÓN", "error");
     }else{
-        if(correoInstLogin.toUpperCase()=='jo0zue99@hotmail.com' && contraseñaLogin=='123456'){
-
-            swal("ÉXITO!", "LLENASTE LOS DATOS CORRECTAMENTE", "success");
-        }else{
-            swal("¡ERROR!", "EL NÚMERO DE CONTROL O CONTRASEÑA SON INCORRECTOS", "error");
-        }
+        const options = {
+            method: "GET",
+        }; 
+        fetch("/citasPsicologicas/php/AJAX/loginPsicologoAJAX.php?correoPersonal="+correoPersonalLogin+"&contraseña="+contraseñaLogin, options)
+            .then(response => response.json())
+            .then(data => {
+                // console.log(data)
+                if(data["bandera"] == 0){
+                    swal("¡ERROR!", "OCURRIO UN ERROR INESPERADO, INTENTALO MÁS TARDE", "error");
+                }
+                if(data["bandera"] == 1){
+                    location.href="/citasPsicologicas/php/pantallaPrincipalPsicologo.php";
+                }
+                if(data["bandera"] == 2){
+                    swal("¡ERROR!", "CORREO O CONTRASEÑA INCORRECTA", "error");
+                }
+            });
     }
 }
 // valida el registro del psicologo
 function validaRegistroPsicologo(){
-    var formulario = document.getElementById("frmRegistroAlm");
+    var formulario = document.getElementById("frmRegistroPsi");
     var nombre = formulario.nombreRegistroPsi.value.trim();
     var edad = formulario.edadRegistroPsi.value.trim();
     var escuela = formulario.escuelaRegistroPsi.value.trim();
@@ -116,10 +128,27 @@ function validaRegistroPsicologo(){
     var contraseña = formulario.contraseñaRegistroPsi.value.trim();
     var numeroCel = formulario.numeroRegistroPsi.value.trim();
 
-    if(nombre.toUpperCase()==""||edad==""||escuela==""||correoPersonal==""||contraseña==""||numeroCel==""){
+    if(nombre.toUpperCase()==""||edad==""||escuela.toUpperCase()==""||correoPersonal==""||contraseña==""||numeroCel==""){
         swal("¡ERROR!", "LLENE LOS DATOS MÍNIMOS PARA INICIAR SESIÓN", "error");
     }else{
-        swal("ÉXITO!", "SE REGISTRARON LOS DATOS CORRECTAMENTE", "success");
+        const options = {
+            method: "GET",
+        }; 
+        fetch("/citasPsicologicas/php/AJAX/registroPsicologoAJAX.php?nombre="+nombre.toUpperCase()+"&edad="+edad+"&escuela="+escuela.toUpperCase()+"&correoPersonal="+correoPersonal+"&contraseña="+contraseña+"&numeroCel="+numeroCel, options)
+            .then(response => response.json())
+            .then(data => {
+                // console.log(data)
+                if(data["bandera"] == 0){
+                    swal("¡ERROR!", "OCURRIO UN ERROR INESPERADO, INTENTALO MÁS TARDE", "error");
+                }
+                if(data["bandera"] == 1){
+                    swal("ÉXITO!", "REGISTRO EXITOSO", "success");
+                    document.getElementById("frmRegistroPsi").reset();
+                }
+                if(data["bandera"] == 2){
+                    swal("¡ERROR!", "YA EXISTE EL REGISTRO", "error");
+                }
+            });
     }
 }
 // muestra la imagen seleccionada en el input tipo file
@@ -158,14 +187,37 @@ function validaSubirHorarioAlm(){
         fetch("/citasPsicologicas/php/AJAX/subirHorarioAJAX.php?horario="+horario, options)
         .then(response => response.json())
         .then(data => {
-            console.log(data)
-
+            // console.log(data);
+            if(data["bandera"]==0){
+                swal("¡ERROR!", "OCURRIO UN ERROR INESPERADO", "error");
+            }
+            if(data["bandera"]==1){
+                swal("ÉXITO!", "SE GUARDÓ TU HORARIO CORRECTAMENTE", "success");
+                document.getElementById("frmSubirHorarioAlm").reset();
+                var imagen=document.getElementById("mostrarImagen");
+                imagen.innerHTML = "";
+            }
+            if(data["bandera"]==2){
+                swal("ÉXITO!", "SE ACTUALIZÓ TU HORARIO CORRECTAMENTE", "success");
+                document.getElementById("frmSubirHorarioAlm").reset();
+                var imagen=document.getElementById("mostrarImagen");
+                imagen.innerHTML = "";
+            }
+            if(data["bandera"]==3){
+                swal("¡ERROR!", "LA IMAGEN SUPERA LOS 200KB ACEPTADOS", "error");
+            }
+            if(data["bandera"]==4){
+                swal("¡ERROR!", "SELECCIONA UN ARCHIVO VALIDO", "error");
+            }
         });
     }
 }
 // regresa a la pagina principal
 function volverInicio(){
     location.href="/citasPsicologicas/php/pantallaPrincipalAlumno.php";
+}
+function volverInicioPsi(){
+    location.href="/citasPsicologicas/php/pantallaPrincipalPsicologo.php";
 }
 // instrucciones
 function instrucciones(){
@@ -179,14 +231,61 @@ function validFichaCanalizacionAlm(){
     if(fichaCanalizacion==""){
         swal("¡ERROR!", "NO HAS SELECCIONADO TU FICHA DE CANALIZACIÓN", "error");
     }else{
-        swal("ÉXITO!", "SE GUARDO TU FICHA DE CANALIZACIÓN CORRECTAMENTE, SELECCIONA HORA PARA LA CITA", "success");
-        document.getElementById("contenido1").setAttribute("hidden","true");
-        document.getElementById("contenido2").removeAttribute("hidden");
+        const data = new FormData(document.getElementById('frmAgendarCitaAlm'));
+        const options = {
+            method: "POST",
+            body: data
+        }; 
+        fetch("/citasPsicologicas/php/AJAX/subirFichaCanalizacionAJAX.php?fichaCanalizacion="+fichaCanalizacion, options)
+        .then(response => response.json())
+        .then(data => {
+            // console.log(data);
+            if(data["bandera"]==0){
+                swal("¡ERROR!", "OCURRIO UN ERROR INESPERADO", "error");
+            }
+            if(data["bandera"]==1){
+                swal("ÉXITO!", "SE GUARDÓ TU FICHA DE CANALIZACIÓN CORRECTAMENTE", "success");
+                document.getElementById("frmAgendarCitaAlm").reset();
+                var imagen=document.getElementById("mostrarImagen");
+                imagen.innerHTML = "";
+                document.getElementById("contenido1").setAttribute("hidden", "true");
+                document.getElementById("contenido2").removeAttribute("hidden");
+            }
+            if(data["bandera"]==2){
+                swal("ÉXITO!", "SE ACTUALIZÓ TU FICHA DE CANALIZACIÓN CORRECTAMENTE", "success");
+                document.getElementById("frmAgendarCitaAlm").reset();
+                var imagen=document.getElementById("mostrarImagen");
+                imagen.innerHTML = "";
+                document.getElementById("contenido1").setAttribute("hidden", "true");
+                document.getElementById("contenido2").removeAttribute("hidden");
+            }
+            if(data["bandera"]==3){
+                swal("¡ERROR!", "LA IMAGEN SUPERA LOS 200KB ACEPTADOS", "error");
+            }
+            if(data["bandera"]==4){
+                swal("¡ERROR!", "SELECCIONA UN ARCHIVO VALIDO", "error");
+            }
+        });
     }
 }
+// cerra sesiones en el sistema
 function cerrarSesion(){
-    location.href="/citasPsicologicas/php/cerrarSesion.php";
+    swal({
+        title: "¿ESTÁ SEGURO DE CERRAR SESIÓN?",
+        text: "",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            location.href="/citasPsicologicas/php/cerrarSesion.php";
+        } else {
+            
+        }
+      });
 }
+// mensaje de bienvenida alumno
 function mensajeBienvenida(){
     var numCtrlHid = document.getElementById("numControlHid").value;
 
@@ -202,7 +301,168 @@ function mensajeBienvenida(){
         }
         var alumno = data["alumno"];
         if(data["bandera"] == 1){
-            swal("BIENVENIDO "+alumno+"",);
+            swal("BIENVENIDO "+alumno+"");
         }
     });
+}
+// mensaje de bienvenida psicologo
+function mensajeBienvenidaPs(){
+    var correoPersonalHid = document.getElementById("correoPersonalHid").value;
+
+    const options = {
+    method: "GET",
+    }; 
+    fetch("/citasPsicologicas/php/mensajeBienvenidaPs.php?correoPersonalHid="+correoPersonalHid, options)
+    .then(response => response.json())
+    .then(data => {
+        // console.log(data)
+        if(data["bandera"] == 0){
+            swal("¡ERROR!", "OCURRIO UN ERROR INESPERADO", "error");
+        }
+        var psicologo = data["psicologo"];
+        if(data["bandera"] == 1){
+            swal("BIENVENIDO "+psicologo+"");
+        }
+    });
+}
+// agregar dia y hora a la tabla de horario
+function agregarHoraPsi(){
+    var diaHorario = document.getElementById("diaHorario").value;
+    var horaHorario = document.getElementById("horaHorario").value;
+
+    var tablaFormarHorarioPsi = document.getElementById("tablaFormarHorarioPsi");
+    var contFormarHorarioPsi = "";
+
+    if(diaHorario!="" && horaHorario!=""){
+        var bandera=0;
+        var resume_table = document.getElementById("tablaFormarHorarioPsi");
+
+        for (var i = 0, row; (row = resume_table.rows[i]); i++) {
+            var arrv = row.innerText.split("\t");
+            if(arrv[0]==diaHorario && arrv[1]==horaHorario){
+                swal("¡ERROR!", "YA SELECCIONASTE ESE DIA Y HORA", "error");
+                bandera=1;
+            }
+        }
+        if(bandera==0){
+            contFormarHorarioPsi = tablaFormarHorarioPsi.innerHTML;
+            contFormarHorarioPsi = contFormarHorarioPsi + "<tr><td>"+diaHorario+"</td><td>"+horaHorario+"</td></tr>";
+            tablaFormarHorarioPsi.innerHTML = contFormarHorarioPsi;
+            document.getElementById("frmAgregarHorarioPsi").reset();
+        }
+    }else{
+        swal("SELECCIONE UN DIA Y UNA HORA PARA FORMAR SU HORARIO");
+    }
+}
+// agregar horario a la BD
+function guardarHorarioPsicologo(){
+    var arrHorario = new Array;
+    var resume_table = document.getElementById("tablaFormarHorarioPsi");
+    for (var i = 0, row; (row = resume_table.rows[i]); i++) {
+        var arrv = row.innerText.split("\t");
+        arrHorario[i] = ["-"+arrv];
+    }
+    const options = {
+        method: "GET",
+        }; 
+        fetch("/citasPsicologicas/php/AJAX/subirHorarioPsicologoAJAX.php?arrHorario="+arrHorario, options)
+        .then(response => response.json())
+        .then(data => {
+            // console.log(data)
+            if(data["bandera"] == 0){
+                swal("¡ERROR!", "OCURRIO UN ERROR INESPERADO", "error");
+            }
+            if(data["bandera"] == 1){
+                swal("ÉXITO!", "SE GUARDÓ TU HORARIO CORRECTAMENTE", "success");
+                document.getElementById("frmAgregarHorarioPsi").reset();
+                var tablaFormarHorarioPsi = document.getElementById("tablaFormarHorarioPsi");
+                tablaFormarHorarioPsi.innerHTML="";
+            }    
+            if(data["bandera"] == 2){
+                swal("¡ERROR!", "NO SE ENCONTRO LA SESION, INTENTA DE NUEVO", "error");
+            }     
+            if(data["bandera"] == 3){
+                swal("¡ERROR!", "SELECCIONA UN DÍA Y HORA, DESPUÉS PRESIONA EL BOTÓN DE AGREGAR Y POR ÚLTIMO GUARDAR", "error");
+            }     
+            if(data["bandera"] == 4){
+                swal("ÉXITO!", "SE BORRÓ TU HORARIO ANTERIOR Y SE ACTUALIZÓ POR EL ACTÚAL", "success");
+                document.getElementById("frmAgregarHorarioPsi").reset();
+                var tablaFormarHorarioPsi = document.getElementById("tablaFormarHorarioPsi");
+                tablaFormarHorarioPsi.innerHTML="";
+            }  
+        });
+}
+// ver el horario del psicologo
+function VerHorarioPsicologo(){
+    const options = {
+        method: "GET",
+        }; 
+        fetch("/citasPsicologicas/php/AJAX/verHorarioPsiAJAX.php", options)
+        .then(response => response.json())
+        .then(data => {
+            // console.log(data)
+            if(data["bandera"] == 0){
+                swal("¡ERROR!", "OCURRIO UN ERROR INESPERADO", "error");
+            }
+            if(data["bandera"] == 1){
+                var horarios = data["arrHorarios"];
+                // console.log(horarios);
+                location.href="/citasPsicologicas/php/verHorarioPsi.php?arrHorarios="+horarios;
+            }    
+            if(data["bandera"] == 2){
+                swal("¡ERROR!", "NO HAS FORMADO TU HORARIO", "error");
+            }     
+            if(data["bandera"] == 3){
+                swal("¡ERROR!", "NO SE ENCONTRO LA SESION, INTENTA DE NUEVO", "error");
+            }     
+        });
+}
+// borrar el horario de la BD
+function borrarHorarioPsicologo(){
+    const options = {
+        method: "GET",
+        }; 
+        fetch("/citasPsicologicas/php/AJAX/borrarHorarioPsiAJAX.php", options)
+        .then(response => response.json())
+        .then(data => {
+            // console.log(data)
+            if(data["bandera"] == 0){
+                swal("¡ERROR!", "OCURRIO UN ERROR INESPERADO", "error");
+            }
+            if(data["bandera"] == 1){
+                swal("ÉXITO!", "SE BORRÓ EL HORARIO CORRECTAMENTE", "success");
+                document.getElementById("frmAgregarHorarioPsi").reset();
+                var tablaFormarHorarioPsi = document.getElementById("tablaFormarHorarioPsi");
+                tablaFormarHorarioPsi.innerHTML="";
+            }    
+            if(data["bandera"] == 2){
+                swal("¡ERROR!", "NO HAS FORMADO TU HORARIO", "error");
+            }     
+            if(data["bandera"] == 3){
+                swal("¡ERROR!", "NO SE ENCONTRO LA SESION, INTENTA DE NUEVO", "error");
+            }     
+        });
+}
+function escogerCita(a){
+    var idHorario = a.id;
+    const options = {
+        method: "GET",
+        }; 
+        fetch("/citasPsicologicas/php/AJAX/seleccionarHorarioAJAX.php?idHorario="+idHorario, options)
+        .then(response => response.json())
+        .then(data => {
+            // console.log(data)
+            if(data["bandera"] == 0){
+                swal("¡ERROR!", "OCURRIO UN ERROR INESPERADO", "error");
+            }
+            if(data["bandera"] == 1){
+                swal("ÉXITO!", "SE BORRÓ EL HORARIO CORRECTAMENTE", "success");
+            }    
+            if(data["bandera"] == 2){
+                swal("¡ERROR!", "NO HAS FORMADO TU HORARIO", "error");
+            }     
+            if(data["bandera"] == 3){
+                swal("¡ERROR!", "NO SE ENCONTRO LA SESION, INTENTA DE NUEVO", "error");
+            }     
+        });
 }

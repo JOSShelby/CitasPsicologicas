@@ -1,17 +1,9 @@
 <?php
-// session_start();
-// //esto no deja que si hay una sesion activa regrese al menu de registro
-// if(isset($_SESSION['alumno'])){
-//    header("location: ./VentanaAlumno.php");
-// }
-
     include '../conexion/conexionBD.php';
-
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <!-- Limpiar cache -->
     <meta http-equiv="Expires" content="0">
@@ -47,7 +39,7 @@
                         <p class="heading">REGISTRARSE</p>
                         <div class="row">
                             <div class="f-control">
-                                <input id="nombreRegistroAlm" title="ej. JOSUE SANCHEZ VENEGAS" type="text" required="" style="text-transform:uppercase;" maxlength="60" onkeypress="return soloLetras(event)">
+                                <input id="nombreRegistroAlm" title="ej. JOSUE SANCHEZ VENEGAS" type="text" required="" style="text-transform:uppercase;" maxlength="70" onkeypress="return soloLetras(event)">
                                 <label>
                                     <span style="transition-delay:0ms">N</span>
                                     <span style="transition-delay:30ms">o</span>
@@ -151,7 +143,7 @@
                                 </label>
                             </div>
                             <div class="f-control">
-                                <input id="correoInstRegistroAlm" type="text" required="" style="text-transform:uppercase;" title="ej. LIS18110312@IRAPUATO.TECNM.MX" maxlength="50">
+                                <input id="correoInstRegistroAlm" type="text" required="" style="text-transform:uppercase;" title="ej. LIS18110312@IRAPUATO.TECNM.MX" maxlength="29">
                                 <label>
                                     <span style="transition-delay:0ms">C</span>
                                     <span style="transition-delay:30ms">o</span>

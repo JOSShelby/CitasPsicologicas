@@ -15,20 +15,20 @@
             $resultadosVerificarAlumno = pg_fetch_row($conexionVerificarAlumno);
         
             if($noRows>0){
-                $queryVerificarHorario = "SELECT * FROM horarioAlumnos WHERE idAlumno=$resultadosVerificarAlumno[0]";
-                $conexionVerificarHorario = pg_query($conexion, $queryVerificarHorario);
-                $noRows = pg_num_rows($conexionVerificarHorario);
+                $queryVerificarFicha = "SELECT * FROM FichaCanalizacionAlumnos WHERE idAlumno=$resultadosVerificarAlumno[0]";
+                $conexionVerificarFicha = pg_query($conexion, $queryVerificarFicha);
+                $noRows = pg_num_rows($conexionVerificarFicha);
             
                 if($noRows == null){
-                    $queryInsertar = "INSERT INTO horarioAlumnos (idAlumno, nombreHorarioAlm, rutaHorarioAlm)
-                    VALUES ('".$resultadosVerificarAlumno[0]."', '".$resultadosVerificarAlumno[4]."', '/citasPsicologicas/archivos/horarios/horarioALM_".$resultadosVerificarAlumno[4].".jpeg')";
+                    $queryInsertar = "INSERT INTO FichaCanalizacionAlumnos (idAlumno, nombreFichaAlm, rutaFichaAlm)
+                    VALUES ('".$resultadosVerificarAlumno[0]."', '".$resultadosVerificarAlumno[4]."', '/citasPsicologicas/archivos/fichasCanalizacion/fichaCanALM_".$resultadosVerificarAlumno[4].".jpeg')";
                     if($conexionInsertar = pg_query($conexion, $queryInsertar)==TRUE){
-                        move_uploaded_file($_FILES['file']["tmp_name"], "../../archivos/horarios/horarioALM_".$resultadosVerificarAlumno[4].".jpeg");
+                        move_uploaded_file($_FILES['file']["tmp_name"], "../../archivos/fichasCanalizacion/fichaCanALM_".$resultadosVerificarAlumno[4].".jpeg");
                     }
                     $bandera=1;
                 }else{
-                    $queryActualizar = "UPDATE horarioAlumnos SET rutaHorarioAlm = '/citasPsicologicas/archivos/horarios/horarioALM_".$resultadosVerificarAlumno[4].".jpeg' WHERE nombreHorarioAlm = ".$resultadosVerificarAlumno[4]."";
-                    move_uploaded_file($_FILES['file']["tmp_name"], "../../archivos/horarios/horarioALM_".$resultadosVerificarAlumno[4].".jpeg");
+                    $queryActualizar = "UPDATE FichaCanalizacionAlumnos SET rutaFichaAlm = '/citasPsicologicas/archivos/fichasCanalizacion/fichaCanALM_".$resultadosVerificarAlumno[4].".jpeg' WHERE nombreFichaAlm = ".$resultadosVerificarAlumno[4]."";
+                    move_uploaded_file($_FILES['file']["tmp_name"], "../../archivos/fichasCanalizacion/fichaCanALM_".$resultadosVerificarAlumno[4].".jpeg");
                     $bandera=2;
                 }
             }

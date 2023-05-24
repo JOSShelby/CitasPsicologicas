@@ -1,11 +1,8 @@
 <?php
-// session_start();
-// //esto no deja que si hay una sesion activa regrese al menu de registro
-// if(isset($_SESSION['alumno'])){
-//    header("location: ./VentanaAlumno.php");
-// }
+session_start();
+if(isset($_SESSION['alumno'])){
+    include '../conexion/conexionBD.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -41,11 +38,11 @@
             <div class="row">
                 <div class="col">
                     <button style="color:#ffffff" title="Volver al inicio" onclick="volverInicio()"><img src="/citasPsicologicas/img/home.png" width="20px" height="20px"></button>
-                    <form class="form" id="frmAgendarCitaAlm">
+                    <form class="form" id="frmAgendarCitaAlm" enctype="multipart/form-data" method="POST">
                         <div class="row">
                             <div class="container">
                                 <div id="contenido1">
-                                    <label style="color:#ffffff">SUBE TU FICHA DE CANALIZACIÓN EN ESTE APARTADO (.jpg)</label>
+                                    <label style="color:#ffffff">SUBE TU FICHA DE CANALIZACIÓN EN ESTE APARTADO (imagen)</label>
                                     <label for="file" class="footer">
                                         <svg fill="#000000" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -57,15 +54,28 @@
                                         </svg>
                                         <p>Seleccionar ...</p>
                                     </label>
-                                    <input onclick="verImagen()" id="file" type="file" accept="image/jpeg">
+                                    <input onclick="verImagen()" id="file" name="file" type="file" accept="image/jpeg,image/jpg,image/png">
                                     <div id="mostrarImagen" class="header" stye="display:flex;">
                                     </div>
                                     <a style="color:#ffffff" onclick="validFichaCanalizacionAlm()" title="Click para subir ficha de canalización">Guardar</a>
                                 </div>
                                 <div id="contenido2" hidden>
-                                <label style="color:#ffffff">SELECCIONA FECHA Y HORA PARA LA CITA</label>
-                                    
-                                    <a style="color:#ffffff" onclick="validFichaCanalizacionAlm()" title="Click para subir ficha de canalización">Guardar</a>
+                                    <label style="color:#ffffff">SELECCIONA FECHA Y HORA PARA LA CITA</label>
+                                    <table id="tablaHorarioPsi" style="color: white;" class="table table-hover">
+                                        <colspan  style="color: white;">HORARIOS DISPONIBLES</colspan>
+                                        <tr><th>DÍA</th><th>HORA</th><th>PSICOLOGO</th></tr>
+                                    <?php
+                                        $queryVerHorario = "SELECT h.idHorarioPsi, r.nombrepsicologo , h.dia, h.hora from horarioPsicologo h, registroPsicologo r where h.statusHorarioPsi=1 order by dia ASC, hora ASC";
+                                        $conexionVerHorario = pg_query($conexion, $queryVerHorario);
+                                        $noRowsHorario = pg_num_rows($conexionVerHorario);
+
+                                        while ($resultadosVerHorario = pg_fetch_array($conexionVerHorario)) {
+                                    ?>
+                                    <tr id="<?php echo $resultadosVerHorario[0]; ?>" onclick="escogerCita(this)"><td><?php print_r($resultadosVerHorario[2]); ?></td><td><?php print_r($resultadosVerHorario[3]); ?></td><td><?php print_r($resultadosVerHorario[1]); ?></td></tr>
+                                    <?php 
+                                        }
+                                    ?>
+                                </table> 
                                 </div>
                             </div>
                         </div>
@@ -75,3 +85,8 @@
         </div>
     </div>
 </body>
+<?php
+}else{
+    header("location: ./");
+}
+?>

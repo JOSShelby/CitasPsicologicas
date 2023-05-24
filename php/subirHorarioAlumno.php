@@ -40,7 +40,7 @@ if(isset($_SESSION['alumno'])){
                     <form class="form" id="frmSubirHorarioAlm" enctype="multipart/form-data" method="POST">
                         <div class="row">
                             <div class="container">
-                                <label style="color:#ffffff">SUBE TU HORARIO DE CLASES EN ESTE APARTADO (.jpg)</label>
+                                <label style="color:#ffffff">SUBE TU HORARIO DE CLASES EN ESTE APARTADO (imagen)</label>
                                 <label for="file" class="footer">
                                     <svg fill="#000000" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -52,7 +52,7 @@ if(isset($_SESSION['alumno'])){
                                     </svg>
                                     <p>Seleccionar ...</p>
                                 </label>
-                                <input onclick="verImagen()" id="file" name="file" type="file" accept="image/jpeg">
+                                <input onclick="verImagen()" id="file" name="file" type="file" accept="image/jpeg,image/jpg,image/png">
                                 <div id="mostrarImagen" class="header" stye="display:flex;">
                                 </div>
                                 <a style="color:#ffffff" onclick="validaSubirHorarioAlm()" title="Click para subir horario de clases">Guardar</a>

@@ -44,7 +44,7 @@
                         <p class="heading">INICIAR SESION</p>
                         <div class="row">
                             <div class="f-control">
-                                <input id="correoInstLogin" type="text" required="" title="ej. ejemplo@hotmail.com">
+                                <input id="correoPersonalLogin" type="text" required="" title="ej. ejemplo@hotmail.com" maxlength="50">
                                 <label>
                                     <span style="transition-delay:0ms">C</span>
                                     <span style="transition-delay:30ms">o</span>
