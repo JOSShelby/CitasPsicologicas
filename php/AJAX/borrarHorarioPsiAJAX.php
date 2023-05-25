@@ -12,19 +12,28 @@
     $resultadosVerificarDatos = pg_fetch_row($conexionVerificarDatos);
 
     if($noRows>0){
+        $query = "SELECT * FROM horarioPsicologo WHERE idPsicologo='".$resultadosVerificarDatos[0]."'";
+        $conexionH = pg_query($conexion, $query);
+        $noRowsH = pg_num_rows($conexionH);
+        $resultadosH = pg_fetch_row($conexionH);
 
-        $queryVerificarHorario = "SELECT * FROM horarioPsicologo WHERE idPsicologo='".$resultadosVerificarDatos[0]."' and idStatusHorarioPsi = 2";
-        $conexionVerificarHorario = pg_query($conexion, $queryVerificarHorario);
-        $noRowsHorario = pg_num_rows($conexionVerificarHorario);
-        $resultadosVerificarHorario = pg_fetch_row($conexionVerificarHorario);
-
-        if($noRowsHorario>0){
-            $bandera=4;
+        if($noRowsH>0){
+            $queryVerificarHorario = "SELECT * FROM horarioPsicologo WHERE idPsicologo='".$resultadosVerificarDatos[0]."' and idStatusHorarioPsi = 2";
+            $conexionVerificarHorario = pg_query($conexion, $queryVerificarHorario);
+            $noRowsHorario = pg_num_rows($conexionVerificarHorario);
+            $resultadosVerificarHorario = pg_fetch_row($conexionVerificarHorario);
+    
+            if($noRowsHorario>0){
+                $bandera=4;
+            }else{
+                $queryActualizar = "DELETE FROM horarioPsicologo WHERE idPsicologo='".$resultadosVerificarDatos[0]."'";
+                $conexionInsertar = pg_query($conexion, $queryActualizar);
+                $bandera=1;
+            }
         }else{
-            $queryActualizar = "DELETE FROM horarioPsicologo WHERE idPsicologo='".$resultadosVerificarDatos[0]."'";
-            $conexionInsertar = pg_query($conexion, $queryActualizar);
-            $bandera=1;
+            $bandera=2;
         }
+        
     }else{
         $bandera=3;
     }
