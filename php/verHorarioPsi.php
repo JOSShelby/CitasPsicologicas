@@ -52,15 +52,15 @@ if(isset($_SESSION['psicologo'])){
                         <p class="heading">TU HORARIO</p>
                         <table id="tablaHorarioPsi" style="color: white;" class="table table-hover">
                             <colspan  style="color: white;">HORARIO</colspan>
-                            <tr><th>DÍA</th><th>HORA</th></tr>
+                            <tr><th>DÍA</th><th>HORA</th><th>ESTADO</th></tr>
                             <?php
-                                $queryVerHorario = "SELECT * FROM horarioPsicologo WHERE idPsicologo='".$resultadosVerificarDatos[0]."' order by dia ASC, hora ASC";
+                                $queryVerHorario = "SELECT h.idHorarioPsi, h.idPsicologo, h.dia, h.hora, s.descripcionHorarioPsi FROM horarioPsicologo h, statusHorarioPsicologo s WHERE h.idStatusHorarioPsi=s.idStatusHorarioPsi and idPsicologo='".$resultadosVerificarDatos[0]."' order by dia ASC, hora ASC";
                                 $conexionVerHorario = pg_query($conexion, $queryVerHorario);
                                 $noRowsHorario = pg_num_rows($conexionVerHorario);
 
                                 while ($resultadosVerHorario = pg_fetch_array($conexionVerHorario)) {
                             ?>
-                                <tr><td><?php print_r($resultadosVerHorario[2]); ?></td><td><?php print_r($resultadosVerHorario[3]); ?></td></tr>
+                                <tr><td><?php print_r($resultadosVerHorario[2]); ?></td><td><?php print_r($resultadosVerHorario[3]); ?></td><td><?php print_r($resultadosVerHorario[4]); ?></td></tr>
                             
                             <?php 
                                 }

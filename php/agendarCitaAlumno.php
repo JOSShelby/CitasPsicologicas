@@ -65,7 +65,7 @@ if(isset($_SESSION['alumno'])){
                                         <colspan  style="color: white;">HORARIOS DISPONIBLES</colspan>
                                         <tr><th>DÍA</th><th>HORA</th><th>PSICOLOGO</th></tr>
                                     <?php
-                                        $queryVerHorario = "SELECT h.idHorarioPsi, r.nombrepsicologo , h.dia, h.hora from horarioPsicologo h, registroPsicologo r where h.statusHorarioPsi=1 order by dia ASC, hora ASC";
+                                        $queryVerHorario = "SELECT h.idHorarioPsi, r.nombrepsicologo , h.dia, h.hora from horarioPsicologo h, registroPsicologo r where h.idStatusHorarioPsi=1 order by dia ASC, hora ASC";
                                         $conexionVerHorario = pg_query($conexion, $queryVerHorario);
                                         $noRowsHorario = pg_num_rows($conexionVerHorario);
 

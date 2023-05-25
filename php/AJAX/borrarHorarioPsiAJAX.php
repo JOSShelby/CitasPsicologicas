@@ -13,17 +13,17 @@
 
     if($noRows>0){
 
-        $queryVerificarHorario = "SELECT * FROM horarioPsicologo WHERE idPsicologo='".$resultadosVerificarDatos[0]."'";
+        $queryVerificarHorario = "SELECT * FROM horarioPsicologo WHERE idPsicologo='".$resultadosVerificarDatos[0]."' and idStatusHorarioPsi = 2";
         $conexionVerificarHorario = pg_query($conexion, $queryVerificarHorario);
         $noRowsHorario = pg_num_rows($conexionVerificarHorario);
         $resultadosVerificarHorario = pg_fetch_row($conexionVerificarHorario);
 
-        if($noRowsHorario>1){
+        if($noRowsHorario>0){
+            $bandera=4;
+        }else{
             $queryActualizar = "DELETE FROM horarioPsicologo WHERE idPsicologo='".$resultadosVerificarDatos[0]."'";
             $conexionInsertar = pg_query($conexion, $queryActualizar);
             $bandera=1;
-        }else{
-            $bandera=2;
         }
     }else{
         $bandera=3;

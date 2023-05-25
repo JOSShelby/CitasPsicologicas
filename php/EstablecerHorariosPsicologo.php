@@ -81,12 +81,12 @@ if(isset($_SESSION['psicologo'])){
                             </label>
                         </div>
                         <a onclick="agregarHoraPsi()" title="Agregar hora seleccionada"><img style="filter: invert();" src="/citasPsicologicas/img/agregar.png" width="20px" height="20px"></a>
-                        <a style="color: #ffffff;" onclick="guardarHorarioPsicologo()" title="Guardar el horario formado">Guardar horario</a>
-                        <a style="color: #ffffff;" onclick="VerHorarioPsicologo()" title="Guardar el horario formado">Ver mi horario</a>
-                        <a style="color: #ffffff;" onclick="borrarHorarioPsicologo()" title="Guardar el horario formado">Borrar horario</a>
                         <table id="tablaFormarHorarioPsi" style="color: white;" class="table table-hover">
                             <colspan  style="color: white;">HORARIO</colspan>
                         </table>
+                        <a style="color: #ffffff;" onclick="guardarHorarioPsicologo()" title="Guardar el horario formado">Guardar horario</a>
+                        <a style="color: #ffffff;" onclick="VerHorarioPsicologo()" title="Ver mi horario formado">Ver mi horario</a>
+                        <a style="color: #ffffff;" onclick="borrarHorarioPsicologo()" title="Borrar todo mi horario">Borrar horario</a>
                     </form>
                 </div>
             </div>

@@ -164,7 +164,7 @@ function verImagen() {
     read.onload = function () {
         const result = this.result;
         const url = result;
-        imagen.width = 150;
+        imagen.width = 300;
         imagen.src = url;
         ul.appendChild(imagen);
     };
@@ -260,7 +260,7 @@ function validFichaCanalizacionAlm(){
                 document.getElementById("contenido2").removeAttribute("hidden");
             }
             if(data["bandera"]==3){
-                swal("¡ERROR!", "LA IMAGEN SUPERA LOS 200KB ACEPTADOS", "error");
+                swal("¡ERROR!", "LA IMAGEN SUPERA LOS 400KB ACEPTADOS", "error");
             }
             if(data["bandera"]==4){
                 swal("¡ERROR!", "SELECCIONA UN ARCHIVO VALIDO", "error");
@@ -441,6 +441,9 @@ function borrarHorarioPsicologo(){
             if(data["bandera"] == 3){
                 swal("¡ERROR!", "NO SE ENCONTRO LA SESION, INTENTA DE NUEVO", "error");
             }     
+            if(data["bandera"] == 4){
+                swal("¡ERROR!", "NO SE PUEDE BORRAR EL HORARIO, HAY CITAS AGENDADAS EN TU HORARIO", "error");
+            }   
         });
 }
 function escogerCita(a){
@@ -454,15 +457,27 @@ function escogerCita(a){
             // console.log(data)
             if(data["bandera"] == 0){
                 swal("¡ERROR!", "OCURRIO UN ERROR INESPERADO", "error");
+                var tablaHorarios = document.getElementById("tablaHorarioPsi");
+                tablaHorarios.innerHTML = "";
             }
             if(data["bandera"] == 1){
-                swal("ÉXITO!", "SE BORRÓ EL HORARIO CORRECTAMENTE", "success");
+                var dia = data["dia"];
+                var hora = data["hora"];
+                var psicologo = data["psicologo"];
+                swal("ÉXITO!", "TU CITA QUEDÓ AGENDADA PARA EL DÍA "+dia.toUpperCase()+" EN UN HORARIO DE "+hora.toUpperCase()+", CON EL PSICOLOGO "+psicologo+
+                ", NO OLVIDES ACUDIR 5 MINUTOS ANTES DE TU CITA CON TU FICHA DE CANALIZACIÓN EN FÍSICO", "success");
+                var tablaHorarios = document.getElementById("tablaHorarioPsi");
+                tablaHorarios.innerHTML = "";
             }    
             if(data["bandera"] == 2){
-                swal("¡ERROR!", "NO HAS FORMADO TU HORARIO", "error");
+                swal("¡ERROR!", "YA TIENES CITA AGENDADA ANTERIORMENTE", "error");
+                var tablaHorarios = document.getElementById("tablaHorarioPsi");
+                tablaHorarios.innerHTML = "";
             }     
             if(data["bandera"] == 3){
                 swal("¡ERROR!", "NO SE ENCONTRO LA SESION, INTENTA DE NUEVO", "error");
+                var tablaHorarios = document.getElementById("tablaHorarioPsi");
+                tablaHorarios.innerHTML = "";
             }     
         });
 }

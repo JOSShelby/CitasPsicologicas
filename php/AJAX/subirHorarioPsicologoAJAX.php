@@ -27,7 +27,7 @@
                     $arr2 = explode(",", $arr1[$i]);
                     $dia = $arr2[0];
                     $hora = $arr2[1];
-                    $queryInsertar = "INSERT INTO horarioPsicologo (idPsicologo, dia, hora, statusHorarioPsi)
+                    $queryInsertar = "INSERT INTO horarioPsicologo (idPsicologo, dia, hora, idStatusHorarioPsi)
                     VALUES ('".$resultadosVerificarDatos[0]."', '".$dia."', '".$hora."', 1)";
                     $conexionInsertar = pg_query($conexion, $queryInsertar);
                     $bandera=1;
@@ -40,7 +40,7 @@
                     $arr2 = explode(",", $arr1[$i]);
                     $dia = $arr2[0];
                     $hora = $arr2[1];
-                    $queryInsertar = "INSERT INTO horarioPsicologo (idPsicologo, dia, hora, statusHorarioPsi)
+                    $queryInsertar = "INSERT INTO horarioPsicologo (idPsicologo, dia, hora, idStatusHorarioPsi)
                     VALUES ('".$resultadosVerificarDatos[0]."', '".$dia."', '".$hora."', 1)";
                     $conexionInsertar = pg_query($conexion, $queryInsertar);
                 }

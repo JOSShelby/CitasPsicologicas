@@ -8,7 +8,7 @@
     $arrRespuesta = [];
     $bandera=0;
     if (($_FILES['file']["type"] =="image/jpeg" OR $_FILES['file']["type"] =="image/jpg" OR $_FILES['file']["type"] =="image/png")){
-        if ($_FILES['file']["size"]<200000){
+        if ($_FILES['file']["size"]<400000){
             $queryVerificarAlumno = "SELECT * FROM registroalumno WHERE numControlAlumno='".$_SESSION['alumno']."'";
             $conexionVerificarAlumno = pg_query($conexion, $queryVerificarAlumno);
             $noRows = pg_num_rows($conexionVerificarAlumno);

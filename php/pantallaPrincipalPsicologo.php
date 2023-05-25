@@ -4,7 +4,6 @@ if(isset($_SESSION['psicologo'])){
 ?>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <!-- Limpiar cache -->
     <meta http-equiv="Expires" content="0">
@@ -25,6 +24,17 @@ if(isset($_SESSION['psicologo'])){
 </head>
 
 <body onload="mensajeBienvenidaPs()"><img class="fondoItesi" src="/citasPsicologicas/img/ITESI.jpg">
+<div class="container">
+<div class="loader">
+  <span>L</span>
+  <span>O</span>
+  <span>A</span>
+  <span>D</span>
+  <span>I</span>
+  <span>N</span>
+  <span>G</span>
+</div>
+
     <div class="container">
         <div class="container text-center">
             <div class="row">
@@ -48,6 +58,7 @@ if(isset($_SESSION['psicologo'])){
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </body>
 <?php
