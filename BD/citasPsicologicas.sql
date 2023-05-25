@@ -79,7 +79,8 @@ idPsicologo int REFERENCES registroPsicologo(idPsicologo),
 idAlumno int REFERENCES registroalumno(idAlumno),
 hora varchar,
 dia varchar,
-numTerapias int,
+numTerapiasAsistidas int,
+numTerapiasCanceladas int,
 idStatusAsociacion int references statusAsociaciones(idStatusAsociacion),
 primary key (idAsociacion)
 );
@@ -100,6 +101,8 @@ select * from statusAsociaciones
 select * from statusHorarioPsicologo
 
 
+SELECT * FROM horarioPsicologo WHERE idpsicologo=1
+select * from horariopsicologo  where idpsicologo =1
 select * from registroalumno where numcontrolalumno = 'IS18110312' and contraseñaalumno = md5('josue121099')
 select h.idHorarioPsi, r.nombrepsicologo , h.dia, h.hora from horarioPsicologo h, registroPsicologo r 
 SELECT h.idHorarioPsi, h.idPsicologo, h.dia, h.hora, s.descripcionHorarioPsi FROM horarioPsicologo h, statusHorarioPsicologo s WHERE h.idStatusHorarioPsi=s.idStatusHorarioPsi and idPsicologo=1 order by dia ASC, hora ASC
