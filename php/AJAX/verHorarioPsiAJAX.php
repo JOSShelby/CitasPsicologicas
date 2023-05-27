@@ -12,12 +12,12 @@
     $resultadosVerificarDatos = pg_fetch_row($conexionVerificarDatos);
 
     if($noRows>0){
-        
+
         $queryVerHorario = "SELECT h.idHorarioPsi, h.idPsicologo, h.dia, h.hora, s.descripcionHorarioPsi FROM horarioPsicologo h, statusHorarioPsicologo s WHERE h.idStatusHorarioPsi=s.idStatusHorarioPsi and idPsicologo='".$resultadosVerificarDatos[0]."' order by dia ASC, hora ASC";
         $conexionVerHorario = pg_query($conexion, $queryVerHorario);
         $noRowsHorario = pg_num_rows($conexionVerHorario);
         // $resultadosVerHorario = pg_fetch_array($conexionVerHorario);
-        if($noRowsHorario>0){
+        if($noRowsHorario>1){
 
             while ($resultadosVerHorario = pg_fetch_array($conexionVerHorario)) {
                 $arrayHorario[] = $resultadosVerHorario[0]."-".$resultadosVerHorario[1]."-".$resultadosVerHorario[2]."-".$resultadosVerHorario[3]."-".$resultadosVerHorario[4];

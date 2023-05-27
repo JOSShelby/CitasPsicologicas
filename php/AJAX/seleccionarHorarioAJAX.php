@@ -26,8 +26,8 @@
                 $noRowsVerificarPsi = pg_num_rows($conexionVerificarPsi);
                 $resultadosVerificarPsi = pg_fetch_row($conexionVerificarPsi);
 
-                $queryInsertar = "INSERT INTO asociacionAlumnoPsicologo (idPsicologo, idAlumno, hora, dia, numTerapiasasistidas, numTerapiascanceladas, idStatusAsociacion)
-                VALUES ('".$resultadosVerificarPsi[1]."', '".$resultadosVerificarDatos[0]."', '".$resultadosVerificarPsi[3]."', '".$resultadosVerificarPsi[2]."', 0, 0, 1)";
+                $queryInsertar = "INSERT INTO asociacionAlumnoPsicologo (idPsicologo, idAlumno, hora, dia, numTerapias, idStatusAsociacion)
+                VALUES ('".$resultadosVerificarPsi[1]."', '".$resultadosVerificarDatos[0]."', '".$resultadosVerificarPsi[3]."', '".$resultadosVerificarPsi[2]."', 0, 1)";
                 $conexionInsertar = pg_query($conexion, $queryInsertar);
 
                 $queryUpdateHora = "UPDATE horarioPsicologo SET idStatusHorarioPsi=2 WHERE idHorarioPsi='".$idHorario."'";

@@ -101,11 +101,17 @@ select * from statusAsociaciones
 select * from statusHorarioPsicologo
 
 
+	select dia from horariopsicologo group by dia
 SELECT * FROM horarioPsicologo WHERE idpsicologo=1
 select * from horariopsicologo  where idpsicologo =1
 select * from registroalumno where numcontrolalumno = 'IS18110312' and contraseñaalumno = md5('josue121099')
 select h.idHorarioPsi, r.nombrepsicologo , h.dia, h.hora from horarioPsicologo h, registroPsicologo r 
-SELECT h.idHorarioPsi, h.idPsicologo, h.dia, h.hora, s.descripcionHorarioPsi FROM horarioPsicologo h, statusHorarioPsicologo s WHERE h.idStatusHorarioPsi=s.idStatusHorarioPsi and idPsicologo=1 order by dia ASC, hora ASC
+SELECT h.idHorarioPsi, h.idPsicologo, h.dia, h.hora, s.descripcionHorarioPsi FROM horarioPsicologo h, statusHorarioPsicologo s WHERE h.idStatusHorarioPsi=s.idStatusHorarioPsi and idPsicologo=1 order by dia ASC, hora asc
+SELECT * FROM horarioPsicologo WHERE idPsicologo=1 and idStatusHorarioPsi = 2 and idhorariopsi =40
+
+SELECT a.hora, a.dia, r.nombrealumno, s.descripcionasociacion, r.idalumno FROM asociacionAlumnoPsicologo a, registroalumno r, statusasociaciones s WHERE s.idstatusasociacion=a.idstatusasociacion
+and a.idalumno=r.idalumno
+
 
 --################################################################################################################################################--
 ---------------------------------------------------------------------------INSERTS------------------------------------------------------------------
